@@ -1,7 +1,8 @@
 const moment = require('moment')
 const assert = require('assert');
 // const timeUtils = require('../../src/utils/timeUtils')
-const TimeRange = require('../../../src/class/TimeRange')
+
+const TimeRange = require('../../src/class/DateRange')
 const expect = require('chai').expect;
 const should = require('chai').should();
 
