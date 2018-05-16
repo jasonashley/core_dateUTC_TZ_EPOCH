@@ -1,4 +1,5 @@
 var moment = require('moment');
+var DateRange = require('./class/DateRange');
 
 let startDateUTC = moment("2018-01-01");
 let endDateUTC = moment("2018-05-30");
@@ -24,8 +25,11 @@ for (var x=0; x< totalWeeks; x++){
 	// loop through the week's days
 	let daily= useStartDate
 	while (daily <= useEndDate){
-		let collection = moment(daily).add(1,'days').format('YYYYMMDD');
-		console.log(`\t\t ${daily} with collection ${collection})`);
+		let dayRange = new DateRange()
+		dayRange.setTime({lowerUTC:daily})
+		let useDay = dayRange.getTime();
+		let collection = moment(useDay.lowerUTC).add(1,'days').format('YYYYMMDD');
+		console.log(`\t\t ${useDay.lowerUTC} to ${useDay.upperUTC} useing next day's collection of ${collection}`);
 		daily = moment(daily).add(1,'days');
 	}
 }
