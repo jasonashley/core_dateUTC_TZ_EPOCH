@@ -1,6 +1,6 @@
-hu 05/17/2018 code completed for:
-* created class to take in any (either/or) start and end date and setting values for both as !null in format YYYY-MM-DD
-* class validates date supplied as not null
+Thu 05/17/2018 code completed for:
+* created Class, DateRange.js, takes in either/or start & end date, then sets values for both in format YYYY-MM-DD
+* class guards members against null values
 * created util for adding hours to above class's to given DateRange, hours are 'sod', StartOfDay, 'eod', EndOfDate as T00:00:00Z and T23:59:59, respectively
 * made file to loop through entire date range given, segment by weekly intervals and convert all dates to EPOCH time, as will be needed for mongodb query.
 * made tests for DateRange class which includes the utils helper 
