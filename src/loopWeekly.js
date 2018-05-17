@@ -34,8 +34,8 @@ for (var x=0; x< totalWeeks; x++){
 		let useDay = dayRange.getTime();
 		let collection = moment(useDay.lowerUTC).add(1,'days').format('YYYYMMDD');
 		console.log(`\t Collection of ${collection}`);
-		console.log(`\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, 'sod')).utc().format('LLL')}`)
-		console.log(`\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.upperUTC, 'eod')).utc().format('LLL')}`)
+		console.log(`\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, 'sod')).utc().format('LLL')}`,`\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, 'sod')).utc().format('X')}`)
+		console.log(`\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.upperUTC, 'eod')).utc().format('LLL')}`,`\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.upperUTC, 'eod')).utc().format('X')}`)
 		thisDayOfThisWeek= moment(thisDayOfThisWeek).add(1,'days');
 	}
 }

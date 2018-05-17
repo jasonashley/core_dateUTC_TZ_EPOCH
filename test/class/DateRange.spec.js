@@ -26,7 +26,7 @@ describe('DateRange Class /src/class/DateRange.js', () => {
     })
   })
 
-  describe('lowerUTC property guards + sod test', () => {
+  describe('lowerUTC property guards test', () => {
     it('lower null, upper null, define lower as start of today', () => {
       let expected = moment().utc().format('YYYY-MM-DD')
       let dateRange = new DateRange()
