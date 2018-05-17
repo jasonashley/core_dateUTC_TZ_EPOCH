@@ -1,7 +1,7 @@
 const moment = require('moment')
 const timeUtil = require('../utils/timeUtils')
 
-class TimeRange {
+class DateRange {
 
   constructor() {
     this._time = {
@@ -32,25 +32,21 @@ class TimeRange {
       this._time.lowerUTC = givenRange.lowerUTC
     }
 
-  // upperUTC, gaurd against null and set
-  if ((givenRange.lowerUTC === null || givenRange.lowerUTC === undefined) &&
-    (givenRange.upperUTC === null || givenRange.upperUTC === undefined)
-  ) {
-    this._time.upperUTC = moment().format('YYYY-MM-DDT23:59:59Z')
-  } else if ((givenRange.upperUTC === null || givenRange.upperUTC === undefined) &&
-    (givenRange.lowerUTC !== null)
-  ) {
-    this._time.upperUTC = moment(givenRange.lowerUTC).format('YYYY-MM-DDT23:59:59Z')
-  } else if (givenRange.upperUTC !== null) {
-    this._time.upperUTC = givenRange.upperUTC
-  }
+    // upperUTC, gaurd against null and set
+    if ((givenRange.lowerUTC === null || givenRange.lowerUTC === undefined) &&
+      (givenRange.upperUTC === null || givenRange.upperUTC === undefined)
+    ) {
+      this._time.upperUTC = moment().utc().format('YYYY-MM-DD');
+    } else if ((givenRange.upperUTC === null || givenRange.upperUTC === undefined) &&
+      (givenRange.lowerUTC !== null)
+    ) {
+      this._time.upperUTC = moment(givenRange.lowerUTC).format('YYYY-MM-DD')
+    } else if (givenRange.upperUTC !== null) {
+      this._time.upperUTC = givenRange.upperUTC
+    }
 
-  // set end of day hours:min:sec to upperUTC
-  if (this._time.upperUTC.length === 10) {
-    this._time.upperUTC += "T23:59:59Z"
   }
-}
 
 }
 
-module.exports = TimeRange
+module.exports = DateRange
