@@ -7,9 +7,9 @@
     let dateAtGMT0
 
     if ( (startOrEndOfDay === null || startOrEndOfDay === undefined) || startOrEndOfDay === "sod"){
-      dateAtGMT0 = useDate + 'T00:00:00Z'
+      dateAtGMT0 = useDate + ' 00:00:00Z'
     } else {
-      dateAtGMT0 = useDate + 'T23:59:59Z'
+      dateAtGMT0 = useDate + ' 23:59:59Z'
     }
 
     return dateAtGMT0
