@@ -16,10 +16,12 @@ describe('DateRange Class /src/class/DateRange.js', () => {
   describe('properties exist, sanity check', () => {
     it ('should have property lowerUTC', () => {
       let actual = new DateRange()
+      actual.dateRange = "";
       actual.dateRange.should.have.property('lowerUTC')
     })
     it ('should have property upperUTC', () => {
       let actual = new DateRange()
+      actual.dateRange = "";
       actual.dateRange.should.have.property('upperUTC')
     })
   })

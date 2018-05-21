@@ -3,14 +3,7 @@ const timeUtil = require('../utils/timeUtils')
 
 function DateRange(givenRange) {
 
-  if (givenRange === null || givenRange === undefined) {
-    givenRange = {}
-  }
-
-  let dateRange = {
-    lowerUTC: givenRange.lowerUTC,
-    upperUTC: givenRange.upperUTC
-  }
+  let dateRange = {}
 
   Object.defineProperty(this, 'dateRange', {
       get: () => {
