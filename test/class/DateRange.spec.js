@@ -24,12 +24,11 @@ describe('DateRange Class /src/class/DateRange.js', () => {
     })
   })
 
-  describe('lowerUTC property guards + sod test', () => {
+  describe('lowerUTC property guard tests', () => {
     it('lower null, upper null, define lower as today', () => {
       let expected=  moment().utc().format('YYYY-MM-DD')
       let tempObj= new DateRange()
       tempObj.dateRange= {} 
-      console.log(tempObj.dateRange.lowerUTC)
       let actual= tempObj.dateRange.lowerUTC
       expect(actual).to.equal(expected)
     })
@@ -37,7 +36,6 @@ describe('DateRange Class /src/class/DateRange.js', () => {
       let expected = '2018-01-29'
       let tempObj= new DateRange({upperUTC: expected})
       tempObj.dateRange= { upperUTC: expected }
-      console.log('upper ',tempObj.dateRange.upperUTC,'    lower ',tempObj.dateRange.lowerUTC)
       let actual = tempObj.dateRange.lowerUTC 
       expect(actual).to.equal(expected)
       // timeUtils will add start of day hours for second test
@@ -54,7 +52,7 @@ describe('DateRange Class /src/class/DateRange.js', () => {
       // expect(timeUtils.UTCMakeGMT0(actual, 'sod')).to.equal(timeUtils.UTCMakeGMT0(expected, 'sod'))
     })
   })
-  describe('upperUTC property guards + eod test', () => {
+  describe('upperUTC property guard tests', () => {
     it('upper null, lower null, define upper as end of today', () => {
       let expected = moment().utc().format('YYYY-MM-DD')
       let tempObj= new DateRange()
