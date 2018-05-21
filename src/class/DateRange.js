@@ -1,52 +1,63 @@
 const moment = require('moment')
 const timeUtil = require('../utils/timeUtils')
 
-class DateRange {
+function DateRange(givenRange) {
 
-  constructor() {
-    this._time = {
-      "lowerUTC": "",
-      "upperUTC": ""
-    }
+  if (givenRange === null || givenRange === undefined) {
+    givenRange = {}
   }
 
-  getTime() {
-    return this._time
-  }
-  setTime(givenRange) {
-    if (givenRange === null || givenRange === undefined) {
-      givenRange = {}
-    }
-
-    // lowerUTC, gaurd against null and set
-    if ((givenRange.lowerUTC === null || givenRange.lowerUTC === undefined) &&
-      (givenRange.upperUTC === null || givenRange.upperUTC === undefined)
-    ) {
-      let tempTime = moment().utc().format('YYYY-MM-DD')
-      this._time.lowerUTC = tempTime
-    } else if ((givenRange.lowerUTC === null || givenRange.lowerUTC === undefined) &&
-      (givenRange.upperUTC !== null)
-    ) {
-      this._time.lowerUTC = moment(givenRange.upperUTC).utc().format('YYYY-MM-DD');
-    } else if (givenRange.lowerUTC !== null) {
-      this._time.lowerUTC = givenRange.lowerUTC
-    }
-
-    // upperUTC, gaurd against null and set
-    if ((givenRange.lowerUTC === null || givenRange.lowerUTC === undefined) &&
-      (givenRange.upperUTC === null || givenRange.upperUTC === undefined)
-    ) {
-      this._time.upperUTC = moment().utc().format('YYYY-MM-DD');
-    } else if ((givenRange.upperUTC === null || givenRange.upperUTC === undefined) &&
-      (givenRange.lowerUTC !== null)
-    ) {
-      this._time.upperUTC = moment(givenRange.lowerUTC).format('YYYY-MM-DD')
-    } else if (givenRange.upperUTC !== null) {
-      this._time.upperUTC = givenRange.upperUTC
-    }
-
+  let dateRange = {
+    lowerUTC: givenRange.lowerUTC,
+    upperUTC: givenRange.upperUTC
   }
 
+  Object.defineProperty(this, 'dateRange', {
+      get: () => {
+        return dateRange
+      },
+      set: (newRange) => {
+        if (newRange === null || newRange === undefined) {
+          newRange = {}
+        }
+
+        // lowerUTC gaurds
+        // upper and lower don't exist, set lower and upper
+        if ((newRange.lowerUTC === null || newRange.lowerUTC === undefined) &&
+          (newRange.upperUTC === null || newRange.upperUTC === undefined)
+        ) {
+          dateRange.lowerUTC = moment().utc().format('YYYY-MM-DD');
+          dateRange.upperUTC = moment().utc().format('YYYY-MM-DD');
+        } else if (
+          (newRange.lowerUTC === null || newRange.lowerUTC === undefined) &&
+          (newRange.upperUTC !== null)
+        ) {
+          dateRange.lowerUTC = moment(newRange.upperUTC).utc().format('YYYY-MM-DD')
+        } else if (newRange.lowerUTC !== null) {
+          dateRange.lowerUTC = moment(newRange.lowerUTC).utc().format('YYYY-MM-DD');
+        }
+        // uppUTC gaurds
+        if ((newRange.lowerUTC === null || newRange.lowerUTC === undefined) &&
+          (newRange.upperUTC === null || newRange.upperUTC === undefined)
+        ) {
+          dateRange.upperUTC = moment().utc().format('YYYY-MM-DD')
+        } else if (
+          (newRange.upperUTC === null || newRange.upperUTC === undefined) &&
+          (newRange.lowerUTC !== null)
+        ) {
+          dateRange.upperUTC = moment(newRange.lowerUTC).utc().format('YYYY-MM-DD')
+        } else if (newRange.upperUTC !== null) {
+          dateRange.upperUTC = moment(newRange.upperUTC).utc().format('YYYY-MM-DD');
+        }
+
+      }
+    }
+
+  )
 }
+
+// }
+
+
 
 module.exports = DateRange

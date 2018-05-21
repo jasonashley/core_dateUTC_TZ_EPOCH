@@ -8,123 +8,92 @@ const should = require('chai').should();
 describe('DateRange Class /src/class/DateRange.js', () => {
   describe('Constructor', () => {
     it('Constructs instance of DateRange', () => {
-      let dateRange = new DateRange({});
-      dateRange.should.be.a('object')
-      expect(dateRange).to.be.an.instanceOf(DateRange)
+      let queryDate= new DateRange();
+      queryDate.should.be.a('object')
+      expect(queryDate).to.be.an.instanceOf(DateRange)
     })
   })
-  describe('getter for properties, sanity check', () => {
+  describe('properties exist, sanity check', () => {
     it ('should have property lowerUTC', () => {
-      let actual = new DateRange({}).getTime();
-
-      actual.should.have.property('lowerUTC')
+      let actual = new DateRange()
+      actual.dateRange.should.have.property('lowerUTC')
     })
     it ('should have property upperUTC', () => {
-      let actual = new DateRange({}).getTime();
-
-      actual.should.have.property('upperUTC')
+      let actual = new DateRange()
+      actual.dateRange.should.have.property('upperUTC')
     })
   })
 
   describe('lowerUTC property guards + sod test', () => {
-    it('lower null, upper null, define lower as start of today', () => {
-      let expected = moment().utc().format('YYYY-MM-DD')
-      let dateRange = new DateRange()
-      dateRange.setTime();
-      let actual = dateRange.getTime().lowerUTC
-      // basic test first
-
+    it('lower null, upper null, define lower as today', () => {
+      let expected=  moment().utc().format('YYYY-MM-DD')
+      let tempObj= new DateRange()
+      tempObj.dateRange= {} 
+      console.log(tempObj.dateRange.lowerUTC)
+      let actual= tempObj.dateRange.lowerUTC
       expect(actual).to.equal(expected)
-
-      // timeUtils will add start of day hours for second test
-      let expectedSOD = moment().utc().format('YYYY-MM-DD') + 'T00:00:00Z'
-      let actualSOD = timeUtils.UTCMakeGMT0(actual, 'sod')
-
-      expect(actualSOD).to.equal(expectedSOD)
     })
     it('Lower null, upper !null, define lower as upper', () => {
       let expected = '2018-01-29'
-      let dateRange = new DateRange()
-      dateRange.setTime({
-        upperUTC: expected
-      });
-      let actual = dateRange.getTime().lowerUTC
-      // basic test first
-
+      let tempObj= new DateRange({upperUTC: expected})
+      tempObj.dateRange= { upperUTC: expected }
+      console.log('upper ',tempObj.dateRange.upperUTC,'    lower ',tempObj.dateRange.lowerUTC)
+      let actual = tempObj.dateRange.lowerUTC 
       expect(actual).to.equal(expected)
-
       // timeUtils will add start of day hours for second test
-
-      expect(timeUtils.UTCMakeGMT0(actual, 'sod')).to.equal(timeUtils.UTCMakeGMT0(expected, 'sod'))
+      // expect(timeUtils.UTCMakeGMT0(actual, 'sod')).to.equal(timeUtils.UTCMakeGMT0(expected, 'sod'))
     })
     it('Lower !null, upper null, define lower as arg', () => {
       let expected = '2018-01-30'
-      let dateRange = new DateRange();
-      dateRange.setTime({
-        lowerUTC: expected
-      });
-      let actual = dateRange.getTime().lowerUTC
+      let tempObj= new DateRange();
+      tempObj.dateRange = {lowerUTC: expected}
+      let actual = tempObj.dateRange.lowerUTC
       // basic test first
       expect(actual).to.equal(expected)
       // timeUtils will add start of day hours for second test
-      expect(timeUtils.UTCMakeGMT0(actual, 'sod')).to.equal(timeUtils.UTCMakeGMT0(expected, 'sod'))
+      // expect(timeUtils.UTCMakeGMT0(actual, 'sod')).to.equal(timeUtils.UTCMakeGMT0(expected, 'sod'))
     })
   })
-
   describe('upperUTC property guards + eod test', () => {
     it('upper null, lower null, define upper as end of today', () => {
       let expected = moment().utc().format('YYYY-MM-DD')
-      let dateRange = new DateRange()
-      dateRange.setTime();
-      let actual = dateRange.getTime().upperUTC
-
+      let tempObj= new DateRange()
+      tempObj.dateRange= {};
+      let actual = tempObj.dateRange.upperUTC 
       // basic test first
       expect(actual).to.equal(expected)
-
-      // timeUtils will add end of day hours for second test
-      let expectedEOD = moment().utc().format('YYYY-MM-DD') + 'T23:59:59Z'
-      let actualEOD = timeUtils.UTCMakeGMT0(actual, 'eod')
-
-      expect(actualEOD).to.equal(expectedEOD)
-
+      // // timeUtils will add end of day hours for second test
+      // let expectedEOD = moment().utc().format('YYYY-MM-DD') + 'T23:59:59Z'
+      // let actualEOD = timeUtils.UTCMakeGMT0(actual, 'eod')
+      // expect(actualEOD).to.equal(expectedEOD)
     })
     it('Upper null, lower !null, define upper as lower', () => {
-      let useTime = '2018-01-29'
-      let expected = moment(useTime).utc().format('YYYY-MM-DD')
-      let dateRange = new DateRange();
-      dateRange.setTime({lowerUTC: useTime});
-      let actual = dateRange.getTime().upperUTC
-
-      // basic test first
+      let expected= '2018-01-29'
+      let tempObj= new DateRange();
+      tempObj.dateRange = {lowerUTC: expected}
+      let actual = tempObj.dateRange.upperUTC
       expect(actual).to.equal(expected)
-
       // timeUtils will add end of day hours for second test
-      let expectedEOD = moment(useTime).utc().format('YYYY-MM-DD') + 'T23:59:59Z'
-      let actualEOD = timeUtils.UTCMakeGMT0(actual, 'eod')
-
-      expect(actualEOD).to.equal(expectedEOD)
-
+      // let expectedEOD = moment(useTime).utc().format('YYYY-MM-DD') + 'T23:59:59Z'
+      // let actualEOD = timeUtils.UTCMakeGMT0(actual, 'eod')
+      // expect(actualEOD).to.equal(expectedEOD)
     })
     it('Upper !null set upper to given arg', () => {
-      let useTime = '2018-01-29';
-      let expected = useTime;
-      let dateRange = new DateRange()
-      dateRange.setTime({ upperUTC: useTime });
-      let actual = dateRange.getTime().upperUTC
-
-      // basic test first
+      let expected= '2018-01-29';
+      let tempObj= new DateRange()
+      tempObj.dateRange= { upperUTC: expected};
+      let actual = tempObj.dateRange.upperUTC;
       expect(actual).to.equal(expected)
-
       // timeUtils will add end of day hours for second test
-      let expectedEOD = moment(useTime).utc().format('YYYY-MM-DD') + 'T23:59:59Z'
-      let actualEOD = timeUtils.UTCMakeGMT0(actual, 'eod')
-
-      expect(actualEOD).to.equal(expectedEOD)
-
+      // let expectedEOD = moment(useTime).utc().format('YYYY-MM-DD') + 'T23:59:59Z'
+      // let actualEOD = timeUtils.UTCMakeGMT0(actual, 'eod')
+      // expect(actualEOD).to.equal(expectedEOD)
     })
   })
 
   afterEach(() => {
-    dateRange = undefined
+    dateRange = undefined,
+    tempObj = undefined
+  
   })
 })

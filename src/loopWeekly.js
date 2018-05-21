@@ -7,11 +7,11 @@ let endDateArg = "2018-01-14"
 
 // get and set entered time
 let wholeDateRange = new DateRange();
-wholeDateRange.setTime({
+wholeDateRange.DateRange= {
 	lowerUTC: startDateArg,
 	upperUTC: endDateArg
-})
-enteredDateRange = wholeDateRange.getTime();
+}
+enteredDateRange = wholeDateRange.DateRange;
 
 // display days and weeks (note add +1 to include a full day(s)
 console.log('Total full days', moment(enteredDateRange.upperUTC).utc().diff(moment(enteredDateRange.lowerUTC).utc(), 'days') + 1)
@@ -34,10 +34,10 @@ for (var x = 0; x < totalWeeks; x++) {
 	let thisDayOfThisWeek = moment(useStartDate).utc()
 	while (thisDayOfThisWeek <= moment(useEndDate).utc()) {
 		let dayRange = new DateRange()
-		dayRange.setTime({
+		dayRange.dateRange= {
 			lowerUTC: moment(thisDayOfThisWeek).utc().format('YYYY-MM-DD')
-		})
-		let useDay = dayRange.getTime();
+		}
+		let useDay = dayRange.dateRange;
 		let collection = moment(useDay.lowerUTC).add(1, 'days').format('YYYYMMDD');
 		console.log(`\t Collection of ${collection}`);
 		console.log(`\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, 'sod')).utc().format('LLL')}`, `\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, 'sod')).utc().format('X')}`)
