@@ -24,7 +24,7 @@ describe('DateRange Class /src/class/DateRange.js', () => {
       actual.dateRange = "";
       actual.dateRange.should.have.property('upperUTC')
     })
-    it('should not expose private property _id', () => {
+    it('should not expose private property _dateRange', () => {
       let actual = new DateRange()
       actual.should.not.have.property('_dateRange')
     })
