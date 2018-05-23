@@ -17,7 +17,7 @@ describe('Person Class, ', () => {
         let aPerson= new Person();
         aPerson.should.have.property('setId')
       })
-      it('should have property setId', () => {
+      it('should not expose private property _id', () => {
         let aPerson= new Person();
         aPerson.should.not.have.property('_id')
       })

@@ -24,6 +24,11 @@ describe('DateRange Class /src/class/DateRange.js', () => {
       actual.dateRange = "";
       actual.dateRange.should.have.property('upperUTC')
     })
+    it('should not expose private property _id', () => {
+      let actual = new DateRange()
+      actual.should.not.have.property('_dateRange')
+    })
+
   })
 
   describe('lowerUTC property guard tests', () => {
@@ -36,7 +41,7 @@ describe('DateRange Class /src/class/DateRange.js', () => {
     })
     it('Lower null, upper !null, define lower as upper', () => {
       let expected = '2018-01-29'
-      let tempObj= new DateRange({upperUTC: expected})
+      let tempObj= new DateRange()
       tempObj.dateRange= { upperUTC: expected }
       let actual = tempObj.dateRange.lowerUTC 
       expect(actual).to.equal(expected)
