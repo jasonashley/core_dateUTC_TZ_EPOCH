@@ -6,27 +6,27 @@ const expect = require('chai').expect;
 const should = require('chai').should();
 
 describe('DateRange Class /src/class/DateRange.js', () => {
+  let tempObj
+  beforeEach(() => {
+    tempObj = new DateRange()
+  });
   describe('Constructor', () => {
     it('Constructs instance of DateRange', () => {
-      let queryDate= new DateRange();
-      queryDate.should.be.a('object')
-      expect(queryDate).to.be.an.instanceOf(DateRange)
+      tempObj.should.be.a('object')
+      expect(tempObj).to.be.an.instanceOf(DateRange)
     })
   })
   describe('properties exist, sanity check', () => {
     it ('should have property lowerUTC', () => {
-      let actual = new DateRange()
-      actual.dateRange = "";
-      actual.dateRange.should.have.property('lowerUTC')
+      tempObj.dateRange = "";
+      tempObj.dateRange.should.have.property('lowerUTC')
     })
     it ('should have property upperUTC', () => {
-      let actual = new DateRange()
-      actual.dateRange = "";
-      actual.dateRange.should.have.property('upperUTC')
+      tempObj.dateRange = "";
+      tempObj.dateRange.should.have.property('upperUTC')
     })
     it('should not expose private property _dateRange', () => {
-      let actual = new DateRange()
-      actual.should.not.have.property('_dateRange')
+      tempObj.should.not.have.property('_dateRange')
     })
 
   })
@@ -34,14 +34,12 @@ describe('DateRange Class /src/class/DateRange.js', () => {
   describe('lowerUTC property guard tests', () => {
     it('lower null, upper null, define lower as today', () => {
       let expected=  moment().utc().format('YYYY-MM-DD')
-      let tempObj= new DateRange()
       tempObj.dateRange= {} 
       let actual= tempObj.dateRange.lowerUTC
       expect(actual).to.equal(expected)
     })
     it('Lower null, upper !null, define lower as upper', () => {
       let expected = '2018-01-29'
-      let tempObj= new DateRange()
       tempObj.dateRange= { upperUTC: expected }
       let actual = tempObj.dateRange.lowerUTC 
       expect(actual).to.equal(expected)
@@ -50,7 +48,6 @@ describe('DateRange Class /src/class/DateRange.js', () => {
     })
     it('Lower !null, upper null, define lower as arg', () => {
       let expected = '2018-01-30'
-      let tempObj= new DateRange();
       tempObj.dateRange = {lowerUTC: expected}
       let actual = tempObj.dateRange.lowerUTC
       // basic test first
@@ -62,7 +59,6 @@ describe('DateRange Class /src/class/DateRange.js', () => {
   describe('upperUTC property guard tests', () => {
     it('upper null, lower null, define upper as end of today', () => {
       let expected = moment().utc().format('YYYY-MM-DD')
-      let tempObj= new DateRange()
       tempObj.dateRange= {};
       let actual = tempObj.dateRange.upperUTC 
       // basic test first
@@ -74,7 +70,6 @@ describe('DateRange Class /src/class/DateRange.js', () => {
     })
     it('Upper null, lower !null, define upper as lower', () => {
       let expected= '2018-01-29'
-      let tempObj= new DateRange();
       tempObj.dateRange = {lowerUTC: expected}
       let actual = tempObj.dateRange.upperUTC
       expect(actual).to.equal(expected)
@@ -85,7 +80,6 @@ describe('DateRange Class /src/class/DateRange.js', () => {
     })
     it('Upper !null set upper to given arg', () => {
       let expected= '2018-01-29';
-      let tempObj= new DateRange()
       tempObj.dateRange= { upperUTC: expected};
       let actual = tempObj.dateRange.upperUTC;
       expect(actual).to.equal(expected)
@@ -97,7 +91,6 @@ describe('DateRange Class /src/class/DateRange.js', () => {
   })
 
   afterEach(() => {
-    dateRange = undefined,
     tempObj = undefined
   
   })
