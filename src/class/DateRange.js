@@ -54,9 +54,9 @@ function DateRange() {
         newRange.lowerUTC !== null
       ) {
         // if (_testDate(_dateRange.lowerUTC)) {
-          _dateRange.upperUTC = moment
-            .utc(newRange.lowerUTC)
-            .format("YYYY-MM-DD");
+        _dateRange.upperUTC = moment
+          .utc(newRange.lowerUTC)
+          .format("YYYY-MM-DD");
         // }
       } else if (newRange.upperUTC !== null) {
         _dateRange.upperUTC = moment
