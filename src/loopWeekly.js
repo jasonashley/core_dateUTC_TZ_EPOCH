@@ -38,7 +38,6 @@ console.log(
 );
 
 // Outer loop will be of Total Range on a weekly loop or days remaining in range
-//TODO: handle (( ( thisEndDay.diff(thisStartDay) % 7 )==0 ? true : false ) ) to finish a segment < a full 7 days
 for (var x = 0; x <= totalWeeks; x++) {
   console.log("Outer Loop week " + (x + 1).toString());
   // display this weeks start and end dates based upon loop interation
@@ -63,7 +62,7 @@ for (var x = 0; x <= totalWeeks; x++) {
   }
 
   console.log(
-    `\t  usedStartDate: ${moment
+    `usedStartDate: ${moment
       .utc(useStartDate)
       .format("LLL")} , useEndDate: ${moment.utc(useEndDate).format("LLL")}`
   );
@@ -76,25 +75,35 @@ for (var x = 0; x <= totalWeeks; x++) {
     };
     let useDay = dayRange.dateRange;
     let collection = moment(useDay.lowerUTC)
-      .add(1, "days")
+      // .add(1, "days")
       .format("YYYYMMDD");
-    console.log(`\t Collection of ${collection}`);
+    console.log(`  Collection of ${collection}`);
     console.log(
-      `\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, "sod"))
+      `    start: ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, "sod"))
         .utc()
         .format("LLL")}`,
-      `\t\t ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, "sod"))
+      `    EPOCH: ${moment(timeUtils.UTCMakeGMT0(useDay.lowerUTC, "sod"))
         .utc()
         .format("X")}`
     );
     console.log(
-      `\t\t ${moment
+      `    end: ${moment
         .utc(timeUtils.UTCMakeGMT0(useDay.upperUTC, "eod"))
         .format("LLL")}`,
-      `\t\t ${moment
+      `    EPOCH: ${moment
         .utc(timeUtils.UTCMakeGMT0(useDay.upperUTC, "eod"))
         .format("X")}`
     );
+    console.log(
+      `    range: {"$gte":${moment(
+        timeUtils.UTCMakeGMT0(useDay.lowerUTC, "sod")
+      )
+        .utc()
+        .format("X")}, "$lte": ${moment
+        .utc(timeUtils.UTCMakeGMT0(useDay.upperUTC, "eod"))
+        .format("X")}}`
+    );
+    console.log("\n");
     thisDayOfThisWeek = moment(thisDayOfThisWeek).add(1, "days");
   }
 }

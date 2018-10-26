@@ -4,7 +4,7 @@
 
 ## 20181026
 
-The `/src/loopWeekly.js` is a test file for looping and displaying a date range and its values for `sod/eod` EPOCH, based on a UTC entry. 
+The `/src/loopWeekly.js` is a example file for looping and displaying a date range and its values for `sod/eod` EPOCH, based on a UTC entry. 
 
 ## 20181025
 
