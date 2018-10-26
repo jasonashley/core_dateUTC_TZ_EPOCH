@@ -3,7 +3,7 @@ const timeUtil = require('../utils/timeUtils')
 
 function DateRange() {
 
-  let _dateRange = {lowerUTC:"", upperUTC:""}
+  let _dateRange = {lowerUTC:"", upperUTC:"", sodUTC:"", eodUTC:"", sodEPOCH:"", eodEPOCH:""}
 
   Object.defineProperty(this, 'dateRange', {
       get: () => {
@@ -42,6 +42,10 @@ function DateRange() {
           _dateRange.upperUTC = moment(newRange.upperUTC).utc().format('YYYY-MM-DD');
         }
 
+        _dateRange.sodUTC= _dateRange.lowerUTC + 'T00:00:00Z'
+        _dateRange.eodUTC= _dateRange.upperUTC + 'T23:59:59Z'
+        _dateRange.sodEPOCH = moment.utc(_dateRange.sodUTC).format("X");
+        _dateRange.eodEPOCH = moment.utc(_dateRange.eodUTC).format("X")
       }
     }
 
