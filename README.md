@@ -2,7 +2,7 @@
 
 ## /src/class/DateRange.js
 
-The class is made to hold an upper and lower date in format `YYYY-MM-DD` format. The schema is.
+The class is made to hold an upper and lower date in format `YYYY-MM-DD` format, guard against null values and give definitive values for end-of-day, 23:59:59 and start-of-day , 00:00:00 in both UTC and EPOCH versions. The resulting object instance and it's properties would be:
 
 ```js
 {
@@ -12,8 +12,9 @@ The class is made to hold an upper and lower date in format `YYYY-MM-DD` format.
   "eodUTC": "2018-10-26T23:59:59Z",
   "sodEPOCH": "1540512000",
   "eodEPOCH": "1540598399"
-} 
+}
 ```
+
 Monday 5/21/2018 
 Modified code for DateRange to be a function constructor instead of an es6 class, with private property dateRange object which holds the uppper and lower UTC.
 Also used the Object.defineProperty for the this instance using get and set with validation, to remove the thi.getDateRange() and this.setDateRange() methods used in previous commit
