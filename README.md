@@ -2,9 +2,13 @@
 
 ## /src/class/DateRange.js
 
+## 20181026
+
+The `/src/loopWeekly.js` is a test file for looping and displaying a date range and its values for `sod/eod` EPOCH, based on a UTC entry. 
+
 ## 20181025
 
-The class is made to hold an upper and lower date in format `YYYY-MM-DD` format, guard against null values and give definitive values for end-of-day, 23:59:59 and start-of-day , 00:00:00 in both UTC and EPOCH versions. The resulting object instance and it's properties would be:
+The class is made to take an upper and lower date in format `YYYY-MM-DD` format and generate values for the `sod/eod` for *UTC* and *EPOCH* in GMT-0, guard against null values and give definitive values for end-of-day, 23:59:59 and start-of-day , 00:00:00 in both UTC and EPOCH versions. The resulting object instance and it's properties would be:
 
 ```js
 {
